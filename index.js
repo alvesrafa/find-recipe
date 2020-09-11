@@ -1,18 +1,13 @@
 import express from "express";
-import knex from "./src/database/connection";
+
+import IngredientRouter from './src/services/Ingredients/IngredientRouter'
+import RecipeRouter from './src/services/Recipes/RecipeRouter'
 
 const app = express();
 app.use(express.json());
 
-app.get("/", async (req, res, next) => {
-  try {
-    const result = await knex("recipes");
-
-    res.status(200).json({ success: true, content: result });
-  } catch (error) {
-    res.status(400).json({ success: false, content: error });
-  }
-});
+app.use(IngredientRouter)
+app.use(RecipeRouter)
 
 app.listen(3000, () => {
   console.log("Happy hacking! 🤖");
