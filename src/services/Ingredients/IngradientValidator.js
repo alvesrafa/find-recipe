@@ -1,8 +1,9 @@
-import Joi from 'joi';
+import { celebrate, Joi, Segments } from 'celebrate';
 
-const IngredientSchema = Joi.object({
-  name: Joi.string()
-    .min(3, 'Mínimo de 3 caracteres')
-    .max(60, ' Máximo de 60 caracteres')
-    .required('O nome do ingrediente é obrigatório'),
-});
+export function ingredientPostValidator() {
+  return celebrate({
+    [Segments.BODY]: Joi.object({
+      name: Joi.string().min(3).max(60).required(),
+    }),
+  });
+}
