@@ -7,3 +7,13 @@ export function ingredientPostValidator() {
     }),
   });
 }
+export function ingredientPutValidator() {
+  return celebrate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.number().min(1).required(),
+    }),
+    [Segments.BODY]: Joi.object({
+      name: Joi.string().min(3).max(60).required(),
+    }),
+  });
+}
