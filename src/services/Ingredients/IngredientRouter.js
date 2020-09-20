@@ -4,7 +4,7 @@ const router = express.Router();
 import {
   ingredientPostValidator,
   ingredientPutValidator,
-  ingreditDeleteValidator,
+  ingredientDeleteValidator,
 } from './IngradientValidator';
 
 router.get('/ingredients', IngredientController.index);
@@ -22,7 +22,7 @@ router.put(
 );
 router.delete(
   '/ingredients/:id',
-  ingreditDeleteValidator(),
+  ingredientDeleteValidator(),
   IngredientController.delete
 );
 

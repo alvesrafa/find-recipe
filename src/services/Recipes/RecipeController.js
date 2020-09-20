@@ -3,10 +3,11 @@ import knex from '../../database/connection';
 class RecipeController {
   async index(req, res, next) {
     try {
-      const result = await knex('recipes').where({ deleted_at: null });
+      const result = await knex.select('*').from('recipes');
 
       return res.status(200).json({ success: true, content: result });
     } catch (error) {
+      console.log(error);
       return res.status(400).json({
         success: false,
         content: {
@@ -18,8 +19,21 @@ class RecipeController {
   }
 
   async create(req, res, next) {
-    const data = req.body;
+    const { ingredients, name, preparation } = req.body;
+
     try {
+      const [recipe_id] = await knex('recipes').insert({ preparation, name });
+      const recipe_ingredients = ingredients.map((ingredient) => {
+        return {
+          id_recipe: recipe_id,
+          id_ingredient: ingredient,
+        };
+      });
+      const result = await knex('recipes_has_ingredients').insert(
+        recipe_ingredients
+      );
+
+      return res.json({ recipe_ingredients: result, recipe_id });
     } catch (error) {
       return res.status(400).json({
         success: false,
