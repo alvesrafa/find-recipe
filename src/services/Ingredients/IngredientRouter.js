@@ -1,7 +1,11 @@
 import express from 'express';
 import IngredientController from './IngredientController';
 const router = express.Router();
-import { ingredientPostValidator, ingredientPutValidator } from './IngradientValidator';
+import {
+  ingredientPostValidator,
+  ingredientPutValidator,
+  ingreditDeleteValidator,
+} from './IngradientValidator';
 
 router.get('/ingredients', IngredientController.index);
 
@@ -16,8 +20,10 @@ router.put(
   ingredientPutValidator(),
   IngredientController.update
 );
-
-
-router.delete('/ingredients', IngredientController.index);
+router.delete(
+  '/ingredients/:id',
+  ingreditDeleteValidator(),
+  IngredientController.delete
+);
 
 export default router;

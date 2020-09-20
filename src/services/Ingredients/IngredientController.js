@@ -3,11 +3,11 @@ import knex from '../../database/connection';
 class IngredientController {
   async index(req, res, next) {
     try {
-      const result = await knex('ingredients');
+      const result = await knex('ingredients').where({ deleted_at: null });
 
-      res.status(200).json({ success: true, content: result });
+      return res.status(200).json({ success: true, content: result });
     } catch (error) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         content: {
           message: 'Erro ao mostrar lista de ingredientes',
@@ -22,14 +22,14 @@ class IngredientController {
     try {
       const [id] = await knex('ingredients').insert(data);
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         content: {
           message: 'Ingrediente cadastrado com sucesso! ',
         },
       });
     } catch (error) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         content: {
           message: 'Erro ao cadastrar ingrediente',
@@ -48,15 +48,56 @@ class IngredientController {
           updated_at: new Date(),
         })
         .where({ id });
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
-        message: 'Ingrediente atualizado com sucesso!',
+        content: {
+          message: 'Ingrediente atualizado com sucesso!',
+        },
       });
     } catch (error) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         content: {
           message: 'Erro ao atualizar ingrediente',
+          error,
+        },
+      });
+    }
+  }
+  async delete(req, res, next) {
+    const { id } = req.params;
+    try {
+      const [ingredient] = await knex('ingredients').where({ id });
+      if (!ingredient) {
+        return res.status(400).json({
+          success: false,
+          content: {
+            message: 'Ingrediente não encontrado.',
+            error,
+          },
+        });
+      }
+      const message = ingredient.deleted_at ? 'Restaurado' : 'Deletado';
+      const statsDeleted = ingredient.deleted_at ? null : new Date();
+
+      await knex('ingredients')
+        .update({
+          deleted_at: statsDeleted,
+        })
+        .where({ id });
+
+      return res.status(200).json({
+        success: true,
+        content: {
+          message: `Ingrediente ${message} com sucesso.`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({
+        success: false,
+        content: {
+          message: 'Erro ao deletar ingrediente',
           error,
         },
       });

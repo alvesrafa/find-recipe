@@ -17,3 +17,10 @@ export function ingredientPutValidator() {
     }),
   });
 }
+export function ingreditDeleteValidator() {
+  return celebrate({
+    [Segments.PARAMS]: Joi.object({
+      id: Joi.number().min(1).required(),
+    }),
+  });
+}
