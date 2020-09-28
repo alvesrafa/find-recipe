@@ -21,6 +21,7 @@
   "homepage": "https://github.com/alvesrafa/project#readme",
   "dependencies": {
     "celebrate": "^13.0.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "joi": "^17.2.1",
     "knex": "^0.21.5",
