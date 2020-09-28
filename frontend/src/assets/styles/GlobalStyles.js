@@ -3,6 +3,12 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
  :root {
     font-size: 60%;
+    --background-color: #FCEFE3;
+    --primary-light: #FF9147;
+    --primary:#FE7F2D;
+    --primary-dark: #B3500E;
+    --font-color: #3D3A37;
+    
   }
   * {
     margin: 0;
@@ -12,6 +18,8 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: var(--background-color);
+    color: var(--font-color);
   }
   button, input {
     border: 0;
