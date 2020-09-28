@@ -9,6 +9,6 @@ app.use(express.json());
 app.use(IngredientRouter);
 app.use(RecipeRouter);
 
-app.listen(3000, () => {
+app.listen(3333, () => {
   console.log('Happy hacking! 🤖');
 });
