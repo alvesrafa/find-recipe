@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { Container } from './styles';
 
 import api from '../../services/api';
+import { getAllIngredients } from '../../store/modules/ingredients/actions';
 
 const Ingredient = () => {
-  const [ingredients, setIngredients] = useState([]);
-
-  const loadIngredients = async () => {
-    try {
-      const response = await api.get('ingredients');
-
-      if (response.data.success) {
-        setIngredients(response.data.content);
-      } else {
-        toast.error('Falha ao buscar ingredientes. ');
-        console.log(response.data);
-      }
-    } catch (e) {
-      toast.error(
-        e?.response?.data?.message || 'Falha ao buscar ingredientes.'
-      );
-      console.log(e?.response);
-    }
-  };
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector((state) => state.ingredients);
   useEffect(() => {
-    loadIngredients();
+    dispatch(getAllIngredients());
   }, []);
+
   return (
     <Container>
       <h1>Listagem de ingredientes</h1>
