@@ -4,15 +4,13 @@ import GlobalStyle from './assets/styles/GlobalStyles';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { ToastContainer } from 'react-toastify';
-
-import Header from './components/Header';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <Provider store={store}>
-      <ToastContainer />
       <GlobalStyle />
-      <Header />
+      <ToastContainer />
       <Routes />
     </Provider>
   );

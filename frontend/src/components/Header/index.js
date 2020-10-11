@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Container } from './styles';
 import { Link, NavLink } from 'react-router-dom';
-
-const Header = () => {
+import Banner from '../Banner';
+const Header = ({ withBanner = false }) => {
   return (
     <Container>
       <div className="logo">
@@ -21,6 +21,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+      {withBanner && <Banner />}
     </Container>
   );
 };

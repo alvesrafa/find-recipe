@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
  :root {
-    font-size: 75%;
+    font-size: 85%;
     --background-color: #FCEFE3;
     --primary-light: #FF9147;
     --primary:#FE7F2D;
@@ -24,12 +24,21 @@ const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
-    
+    transition: all .2s ease-in-out;
+    &:hover {
+      opacity: .8;
+    }
   }
   button, input {
     border: 0;
     background: transparent;
+    &:focus {
+      outline: 0;
+    }
+    color: var(--font-color);
+    font-weight: bold;
   }
+  
   ul {
     list-style-type: none;
   }
